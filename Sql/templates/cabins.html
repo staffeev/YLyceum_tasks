@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block cabins %}
+    <h2>Оформление каюты</h2>
+    {% set picture = 'img/genders/adult.png' if age >= 21 else 'img/genders/child.png'%}
+    <table class="table" style="max-width: 50%;">
+        <thead>
+          <tr class="table-secondary">
+            <th scope="col">Цвет стен</th>
+            <th scope="col">Эмблема</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            {% if sex == 'female' and age < 21%}
+                <td style="background-color: peachpuff;"></td>
+            {% elif sex == 'female' and age >= 21 %}
+                <td style="background-color: red;"></td>
+            {% elif sex == 'male' and age < 21 %}
+                <td style="background-color: aqua;"></td>
+            {% else %}
+                <td style="background-color: blue;"></td>
+            {% endif %}
+            <td style="width: 50%;"><img src="{{ url_for('static', filename=picture) }}" alt=""></td>
+          </tr>
+        </tbody>
+      </table>
+{% endblock %}

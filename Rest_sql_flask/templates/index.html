@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block logs %}
+    <h1>Works Log</h1>
+    <p>
+        <a href="departments" class="btn btn-secondary">Go to Departments</a>
+        {% if current_user.is_authenticated %}
+            <a href="addjob" class="btn btn-secondary">Add a Job</a>
+        {% endif %}
+    </p>
+    {% for item in jobs%}
+    <div>
+        <h2>Action # {{item.id}}</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr class="table-active">
+                    <th scope="col">Title of activity</th>
+                    <th scope="col">Team leader</th>
+                    <th scope="col">Duration</th>
+                    <th scope="col">List of collaborators</th>
+                    <th scope="col">Hazard category</th>
+                    <th scope="col">Is finished</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="table-info" style="width: 30%;">{{item.job}}</td>
+                    <td class="table-info" style="width: 14%;">{{leaders[loop.index0]}}</td>
+                    <td class="table-info" style="width: 14%;">{{item.work_size}} hours</td>
+                    <td class="table-info" style="width: 14%;">{{item.collaborators}}</td>
+                    <td class="table-info" style="width: 14%;">{{categories[loop.index0]}}</td>
+                    {% if item.is_finished %}
+                        <td class="table-success" style="width: 14%;">Is finished</td>
+                    {% else %}
+                        <td class="table-danger">Is not finished</td>
+                    {% endif %}
+                </tr>
+            </tbody>
+        </table>
+        {% if current_user.is_authenticated and (current_user == item.user or current_user.id == 1) %}
+            <div>
+                <a href="/jobs/{{ item.id }}" class="btn btn-warning">
+                    Edit
+                </a>
+                <a href="/jobs_delete/{{ item.id }}" class="btn btn-danger">
+                    Delete
+                </a>
+            </div>
+        {% endif %}
+    </div>
+    <br>
+    {% endfor %}
+{% endblock %}

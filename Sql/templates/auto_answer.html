@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block answers %}
+    {% set answers_dict = {'surname': surname, 'name': name,
+        'education': education, 'profession': profession, 'sex': sex,
+        'motivation': motivation, 'ready': ready} %}
+    {% set captions = ['Фамилия', 'Имя', 'Образование', 'Профессия', 'Пол', 'Мотивация', 'Готовы остаться на Марсе?'] %}
+    {% for key in answers_dict.keys() %}
+            <h4>{{ captions[loop.index0] }}: {{ answers_dict[key] }}</h4>
+
+    {% endfor%}
+    
+{% endblock %}

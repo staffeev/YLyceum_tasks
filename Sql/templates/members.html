@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block crew %}
+    <div>
+        {% set member = data['crew_members'] | random %}
+        <h2 id="center_el"> {{member['name']}} {{member['surname']}}</h2>
+        <img src="{{url_for('static', filename=member['photo'])}}" alt="" id="center_el">
+        <p id="center_el">{{member['professions'] | sort | join(", ")}}</p>
+    </div>
+{% endblock %}
